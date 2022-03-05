@@ -29,7 +29,7 @@ try:
     api_hash = cpass['cred']['hash']
     phone = cpass['cred']['phone']
     client = TelegramClient(phone, api_id, api_hash)
-except KeyError:
+ :
     os.system('clear')
     banner()
     print(re+"[!] run python3 setup.py first !!\n")
@@ -46,15 +46,15 @@ os.system('clear')
 banner()
 chats = []
 last_date = None
-chunk_size = 200
+chunk_size = 2000
 groups=[]
  
 result = client(GetDialogsRequest(
              offset_date=last_date,
-             offset_id=0,
-             offset_peer=InputPeerEmpty(),
+             offset_id=10
+             offset_peer=InputPeer,
              limit=chunk_size,
-             hash = 0
+             hash = 100
          ))
 chats.extend(result.chats)
  
@@ -70,34 +70,4 @@ i=0
 for g in groups:
     print(gr+'['+cy+str(i)+']' + ' - ' + g.title)
     i+=1
- 
-print('')
-g_index = input(gr+"[+] Enter a Number : "+re)
-target_group=groups[int(g_index)]
- 
-print(gr+'[+] Fetching Members...')
-time.sleep(1)
-all_participants = []
-all_participants = client.get_participants(target_group, aggressive=True)
- 
-print(gr+'[+] Saving In file...')
-time.sleep(1)
-with open("members.csv","w",encoding='UTF-8') as f:
-    writer = csv.writer(f,delimiter=",",lineterminator="\n")
-    writer.writerow(['username','user id', 'access hash','name','group', 'group id'])
-    for user in all_participants:
-        if user.username:
-            username= user.username
-        else:
-            username= ""
-        if user.first_name:
-            first_name= user.first_name
-        else:
-            first_name= ""
-        if user.last_name:
-            last_name= user.last_name
-        else:
-            last_name= ""
-        name= (first_name + ' ' + last_name).strip()
-        writer.writerow([username,user.id,user.access_hash,name,target_group.title, target_group.id])      
-print(gr+'[+] Members scraped successfully. Subscribe Termux Professor Youtube Channel For Add Members')
+ Allowed
